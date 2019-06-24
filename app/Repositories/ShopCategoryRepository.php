@@ -47,7 +47,7 @@ class ShopCategoryRepository extends CoreRepository
 
     public function getAllWithPaginate($perPage = null)
     {
-        $columns = ['id', 'title', 'parent_id', 'description'];
+        $columns = ['id', 'title', 'parent_id', 'description', 'slug'];
 
         $result = $this
             ->startConditions()

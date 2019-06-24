@@ -38,3 +38,8 @@ Route::group($groupData, function (){
         ->except(['show'])
         ->names('shop.admin.items');
 });
+
+Route::get('categories/api',[
+    'as' => 'categories.api',
+    'uses' => 'API\CategoryApiController@index'
+]);

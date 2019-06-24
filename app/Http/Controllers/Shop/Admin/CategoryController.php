@@ -25,7 +25,6 @@ class CategoryController extends BaseController
         parent::__construct();
 
         $this->shopCategoryRepository = app(ShopCategoryRepository::class);
-
     }
 
     /**
@@ -35,7 +34,7 @@ class CategoryController extends BaseController
      */
     public function index()
     {
-        $paginator = $this->shopCategoryRepository->getAllWithPaginate(25);
+        $paginator = $this->shopCategoryRepository->getAllWithPaginate(10);
 
         return view('shop.admin.categories.index', compact('paginator'));
     }
