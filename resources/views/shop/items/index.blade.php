@@ -17,7 +17,7 @@
                 </p>
             </div>
             <div class="card-footer">
-                <small class="text-muted">{{ $item->price }}</small>
+                <small class="text-muted">Цена: {{ $item->price }}</small>
             </div>
         </div>
     @endforeach
