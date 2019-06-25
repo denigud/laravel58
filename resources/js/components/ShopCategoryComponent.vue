@@ -20,28 +20,34 @@
                                             <div class="tab-pane active" id="maindata" role="tabpanel">
                                                 <div class="form-group">
                                                     <label for="title">Заголовок</label>
+                                                    <div v-if="!loading">
                                                     <input name="title" v-model="category.title"
                                                            id="title"
                                                            type="text"
                                                            class="form-control"
                                                            minlength="3"
                                                            required>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="slug">Идентификатор</label>
+                                                    <div v-if="!loading">
                                                     <input name="slug" v-model="category.slug"
                                                            id="slug"
                                                            type="text"
                                                            class="form-control">
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="description">Описание</label>
+                                                    <div v-if="!loading">
                                                     <textarea name="description"
                                                               id="description"
                                                               rows="3"
                                                               class="form-control">
                                                         {{ category.description }}
                                                     </textarea>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -66,7 +72,9 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <ul class="list-unstyled">
+                                            <div v-if="!loading">
                                             <li>ID: {{ category.id }}</li>
+                                            </div>
                                         </ul>
                                     </div>
                                 </div>
@@ -79,15 +87,21 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="title">Создано</label>
+                                            <div v-if="!loading">
                                             <input type="text" v-model="category.created_at" class="form-control" disabled>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="title">Изменено</label>
+                                            <div v-if="!loading">
                                             <input type="text" v-model="category.updated_at" class="form-control" disabled>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="title">Удалено</label>
+                                            <div v-if="!loading">
                                             <input type="text" v-model="category.deleted_ad" class="form-control" disabled>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -108,6 +122,7 @@
             return {
                 category: this.category,
                 categoryList: this.categoryList,
+                loading: false,
             }
         },
         beforeMount() {
@@ -116,10 +131,12 @@
 
         methods: {
             getCategory() {
+                this.loading = true;
                 axios.get('/category/api?categoryId=' + this.$route.params.id)
                     .then((response) => {
                         this.category = response.data.category;
                         this.categoryList = response.data.categoryList;
+                        this.loading = false;
                     })
                     .catch(() => {
                         console.log('handle server error from here');

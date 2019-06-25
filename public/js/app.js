@@ -1911,12 +1911,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'category-edit',
   data: function data() {
     return {
       category: this.category,
-      categoryList: this.categoryList
+      categoryList: this.categoryList,
+      loading: false
     };
   },
   beforeMount: function beforeMount() {
@@ -1926,9 +1941,11 @@ __webpack_require__.r(__webpack_exports__);
     getCategory: function getCategory() {
       var _this = this;
 
+      this.loading = true;
       axios.get('/category/api?categoryId=' + this.$route.params.id).then(function (response) {
         _this.category = response.data.category;
         _this.categoryList = response.data.categoryList;
+        _this.loading = false;
       })["catch"](function () {
         console.log('handle server error from here');
       });
@@ -37444,37 +37461,41 @@ var render = function() {
                               _vm._v("Заголовок")
                             ]),
                             _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.category.title,
-                                  expression: "category.title"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                name: "title",
-                                id: "title",
-                                type: "text",
-                                minlength: "3",
-                                required: ""
-                              },
-                              domProps: { value: _vm.category.title },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.category,
-                                    "title",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            })
+                            !_vm.loading
+                              ? _c("div", [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.category.title,
+                                        expression: "category.title"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      name: "title",
+                                      id: "title",
+                                      type: "text",
+                                      minlength: "3",
+                                      required: ""
+                                    },
+                                    domProps: { value: _vm.category.title },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.category,
+                                          "title",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ])
+                              : _vm._e()
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group" }, [
@@ -37482,31 +37503,39 @@ var render = function() {
                               _vm._v("Идентификатор")
                             ]),
                             _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.category.slug,
-                                  expression: "category.slug"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: { name: "slug", id: "slug", type: "text" },
-                              domProps: { value: _vm.category.slug },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.category,
-                                    "slug",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            })
+                            !_vm.loading
+                              ? _c("div", [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.category.slug,
+                                        expression: "category.slug"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      name: "slug",
+                                      id: "slug",
+                                      type: "text"
+                                    },
+                                    domProps: { value: _vm.category.slug },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.category,
+                                          "slug",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ])
+                              : _vm._e()
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group" }, [
@@ -37514,24 +37543,28 @@ var render = function() {
                               _vm._v("Описание")
                             ]),
                             _vm._v(" "),
-                            _c(
-                              "textarea",
-                              {
-                                staticClass: "form-control",
-                                attrs: {
-                                  name: "description",
-                                  id: "description",
-                                  rows: "3"
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "                                                    " +
-                                    _vm._s(_vm.category.description) +
-                                    "\n                                                "
-                                )
-                              ]
-                            )
+                            !_vm.loading
+                              ? _c("div", [
+                                  _c(
+                                    "textarea",
+                                    {
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        name: "description",
+                                        id: "description",
+                                        rows: "3"
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "                                                    " +
+                                          _vm._s(_vm.category.description) +
+                                          "\n                                                "
+                                      )
+                                    ]
+                                  )
+                                ])
+                              : _vm._e()
                           ])
                         ]
                       )
@@ -37552,7 +37585,11 @@ var render = function() {
                 _c("div", { staticClass: "card" }, [
                   _c("div", { staticClass: "card-body" }, [
                     _c("ul", { staticClass: "list-unstyled" }, [
-                      _c("li", [_vm._v("ID: " + _vm._s(_vm.category.id))])
+                      !_vm.loading
+                        ? _c("div", [
+                            _c("li", [_vm._v("ID: " + _vm._s(_vm.category.id))])
+                          ])
+                        : _vm._e()
                     ])
                   ])
                 ])
@@ -37570,31 +37607,35 @@ var render = function() {
                         _vm._v("Создано")
                       ]),
                       _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.category.created_at,
-                            expression: "category.created_at"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", disabled: "" },
-                        domProps: { value: _vm.category.created_at },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.category,
-                              "created_at",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
+                      !_vm.loading
+                        ? _c("div", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.category.created_at,
+                                  expression: "category.created_at"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text", disabled: "" },
+                              domProps: { value: _vm.category.created_at },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.category,
+                                    "created_at",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        : _vm._e()
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
@@ -37602,31 +37643,35 @@ var render = function() {
                         _vm._v("Изменено")
                       ]),
                       _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.category.updated_at,
-                            expression: "category.updated_at"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", disabled: "" },
-                        domProps: { value: _vm.category.updated_at },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.category,
-                              "updated_at",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
+                      !_vm.loading
+                        ? _c("div", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.category.updated_at,
+                                  expression: "category.updated_at"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text", disabled: "" },
+                              domProps: { value: _vm.category.updated_at },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.category,
+                                    "updated_at",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        : _vm._e()
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
@@ -37634,31 +37679,35 @@ var render = function() {
                         _vm._v("Удалено")
                       ]),
                       _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.category.deleted_ad,
-                            expression: "category.deleted_ad"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", disabled: "" },
-                        domProps: { value: _vm.category.deleted_ad },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.category,
-                              "deleted_ad",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
+                      !_vm.loading
+                        ? _c("div", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.category.deleted_ad,
+                                  expression: "category.deleted_ad"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text", disabled: "" },
+                              domProps: { value: _vm.category.deleted_ad },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.category,
+                                    "deleted_ad",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        : _vm._e()
                     ])
                   ])
                 ])
