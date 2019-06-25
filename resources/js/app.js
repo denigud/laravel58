@@ -8,6 +8,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+Vue.use(require('vue-router'));
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -21,7 +23,10 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('categories-component', require('./components/ShopCategoriesComponent.vue').default);
-Vue.component('category-component', require('./components/ShopCategoryComponent.vue').default);
+const categoryComponent = Vue.component('category-edit-component', require('./components/ShopCategoryComponent').default);
+const categoryCreateComponent = Vue.component('category-create-component', require('./components/ShopCategoryCreateComponent').default);
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -30,9 +35,23 @@ Vue.component('category-component', require('./components/ShopCategoryComponent.
  */
 
 const router = new VueRouter({
+    mode: 'history',
+    routes: [
+        {
+            name: 'categoryEdit',
+            path: '/admin/shop/categories/:id/edit',
+            component: categoryComponent,
+        },
+        {
+            name: 'categoryCreate',
+            path: '/admin/shop/categories/create',
+            component: categoryCreateComponent,
+        },
+    ],
 });
 
 const app = new Vue({
     el: '#app',
     router: router,
 });
+

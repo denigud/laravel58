@@ -1,11 +1,15 @@
 <template>
     <div id="shop-categories">
+        <transition mode="out-in">
+            <router-view></router-view>
+        </transition>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-                        <a href="#" class="btn btn-primary">Добавить</a>
-    <!--                    {{ route('shop.admin.categories.create') }}-->
+                        <router-link :to="{ name: 'categoryCreate'}" class="btn btn-primary">
+                            Добавить
+                        </router-link>
                     </nav>
                     <div class="card">
                         <div class="card-body">
@@ -18,10 +22,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="category in categories" :key="category.slug">
+                                    <tr v-for="category in categories" :key="category.id">
                                         <td>{{ category.id }}</td>
                                         <td>
-                                            <router-link :to="'/categories/edit/' + category.id">
+                                            <router-link :to="{ name: 'categoryEdit', params: { id: category.id }}">
                                                 {{ category.title }}
                                             </router-link>
                                         </td>
@@ -59,7 +63,7 @@
                     .catch(() => {
                         console.log('handle server error from here');
                     });
-            }
+            },
         }
     }
 </script>

@@ -41,5 +41,10 @@ Route::group($groupData, function (){
 
 Route::get('categories/api',[
     'as' => 'categories.api',
+    'uses' => 'API\CategoriesApiController@index'
+]);
+
+Route::get('category/api',[
+    'as' => 'categories.api',
     'uses' => 'API\CategoryApiController@index'
 ]);

@@ -2,14 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\ShopCategoryCreateRequest;
-use App\Http\Requests\ShopCategoryUpdateRequest;
-use App\Models\ShopCategory;
 use App\Repositories\ShopCategoryRepository;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Str;
-use phpDocumentor\Reflection\Types\This;
 
 class CategoryApiController extends Controller
 {
@@ -31,9 +25,16 @@ class CategoryApiController extends Controller
      */
     public function index()
     {
-        $paginator = $this->shopCategoryRepository->getAllWithPaginate(10);
+        $id = $_GET['categoryId'];
 
-        return $paginator;
+        $category = $this->shopCategoryRepository->getEdit($id);
+        if (empty($category)){
+            abort(404);
+        }
+
+        $categoryList = $this->shopCategoryRepository->getForComboBox();
+
+        return compact('category','categoryList');
     }
 
 }
