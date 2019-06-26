@@ -9,6 +9,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 Vue.use(require('vue-router'));
+Vue.use(require('vuetify'));
 
 /**
  * The following block of code may be used to automatically register your
@@ -23,7 +24,11 @@ Vue.use(require('vue-router'));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('categories-component', require('./components/ShopCategoriesComponent.vue').default);
+
 const categoryComponent = Vue.component('category-edit-component', require('./components/ShopCategoryComponent').default);
+// const categoryMainCol = Vue.component(require('./components/categories/includes/item_edit_main_col').default);
+// const categoryAddCol = Vue.component('categoryAddCol', require('./components/categories/includes/item_edit_add_col').default);
+
 const categoryCreateComponent = Vue.component('category-create-component', require('./components/ShopCategoryCreateComponent').default);
 
 
@@ -40,15 +45,21 @@ const router = new VueRouter({
         {
             name: 'categoryEdit',
             path: '/admin/shop/categories/:id/edit',
-            component: categoryComponent,
+            components: {
+                default: categoryComponent,
+
+            }
+            //component: categoryComponent,
         },
         {
             name: 'categoryCreate',
             path: '/admin/shop/categories/create',
             component: categoryCreateComponent,
         },
+        // { path: '*', component: NotFoundComponent },
     ],
 });
+
 
 const app = new Vue({
     el: '#app',
