@@ -31,4 +31,12 @@ class CategoriesApiController extends Controller
         return $paginator;
     }
 
+
+    public function all()
+    {
+        $categoryList = $this->shopCategoryRepository->getForComboBox();
+
+        return $categoryList;
+    }
+
 }

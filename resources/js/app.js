@@ -24,6 +24,8 @@ Vue.use(require('vuetify'));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('categories-component', require('./components/ShopCategoriesComponent.vue').default);
+Vue.component('category-create', require('./components/categories/includes/item_create_main_col').default);
+
 
 const categoryComponent = Vue.component('category-edit-component', require('./components/ShopCategoryComponent').default);
 // const categoryMainCol = Vue.component(require('./components/categories/includes/item_edit_main_col').default);

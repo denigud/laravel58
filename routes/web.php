@@ -39,12 +39,29 @@ Route::group($groupData, function (){
         ->names('shop.admin.items');
 });
 
+Route::get('category/api',[
+    'as' => 'categories.api',
+    'uses' => 'API\CategoryApiController@index'
+]);
+
+Route::post('category/store/api',[
+    'as' => 'categories.api',
+    'uses' => 'API\CategoryApiController@store'
+]);
+
+Route::post('category/update/api',[
+    'as' => 'categories.api',
+    'uses' => 'API\CategoryApiController@update'
+]);
+
 Route::get('categories/api',[
     'as' => 'categories.api',
     'uses' => 'API\CategoriesApiController@index'
 ]);
 
-Route::get('category/api',[
+Route::get('categories/all/api',[
     'as' => 'categories.api',
-    'uses' => 'API\CategoryApiController@index'
+    'uses' => 'API\CategoriesApiController@all'
 ]);
+
+

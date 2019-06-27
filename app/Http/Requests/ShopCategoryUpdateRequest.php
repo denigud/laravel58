@@ -27,7 +27,7 @@ class ShopCategoryUpdateRequest extends FormRequest
         return [
             'title'       => 'required|min:5|max:200',
             'slug'        => 'max:200',
-            'description' => 'string|min:3|max:500',
+            'description' => 'max:500',
             'parent_id'   => 'required|integer|exists:shop_categories,id',
         ];
     }

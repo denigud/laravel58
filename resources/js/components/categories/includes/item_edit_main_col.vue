@@ -30,12 +30,24 @@
                                        class="form-control">
                             </div>
                             <div class="form-group">
+                                <label for="parent_id">Родитель</label>
+                                <select name="parent_id" v-model="category.parent_id"
+                                        id="parent_id"
+                                        class="form-control"
+                                        required>
+                                    <option disabled value=null>Выберете катигорию</option>
+                                    <option v-for="categoryOption in categoryList" v-bind:value="categoryOption.id">
+                                        {{ categoryOption.id_title }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="description">Описание</label>
                                 <textarea name="description"
                                           id="description"
                                           rows="3"
                                           class="form-control"
-                                >{{ category.description }}
+                                          v-model="category.description">
                                 </textarea>
                             </div>
                         </div>
@@ -49,7 +61,7 @@
 <script>
     export default {
         name: "item_edit_main",
-        props:['category'],
+        props:['category', 'categoryList'],
     }
 </script>
 

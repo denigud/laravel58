@@ -48,7 +48,6 @@ class CategoryController extends BaseController
     {
         $item = new ShopCategory();
         $categoryList = $this->shopCategoryRepository->getForComboBox();
-
         return view('shop.admin.categories.edit',
                 compact('item','categoryList'));
     }
