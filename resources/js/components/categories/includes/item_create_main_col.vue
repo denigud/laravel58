@@ -104,7 +104,6 @@
                 }
             },
             submitHandler(){
-                console.log(this);
                 axios.post('/category/store/api', {
                         title:       this.title,
                         slug:        this.slug,

@@ -26,6 +26,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('categories-component', require('./components/categories/ShopCategoriesComponent.vue').default);
 Vue.component('category-create', require('./components/categories/includes/item_create_main_col').default);
 
+Vue.component('items-component', require('./components/items/ShopItemsComponent.vue').default);
+Vue.component('item-create', require('./components/items/includes/item_create').default);
+Vue.component('item-edit-component', require('./components/items/ShopItemComponent').default);
 
 const categoryComponent = Vue.component('category-edit-component', require('./components/categories/ShopCategoryComponent').default);
 

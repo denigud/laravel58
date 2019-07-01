@@ -27,7 +27,7 @@ class ShopItemCreateRequest extends FormRequest
         return [
             'title'       => 'required|min:3|max:200|unique:shop_items',
             'slug'        => 'max:200',
-            'description' => 'required|string|min:5|max:1000',
+            'description' => 'max:1000',
             'category_id' => 'required|integer|exists:shop_categories,id',
         ];
     }
