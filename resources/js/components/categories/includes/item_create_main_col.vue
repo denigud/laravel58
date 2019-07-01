@@ -79,20 +79,29 @@
                 categoryList: null,
             }
         },
-        beforeMount() {
-            this.fetchData()
+        beforeUpdate(){
+            this.loading = this.$attrs.loading;
+            this.fetchData();
+            this.$attrs.loading = false;
         },
         methods:{
             fetchData() {
-                this.loading = true;
-                axios.get('/categories/all/api')
-                    .then((response) => {
-                        this.categoryList = response.data;
-                        this.loading = false;
-                    })
-                    .catch(() => {
-                        console.log('handle server error from here');
-                    });
+
+                if(this.loading) {
+                    this.title = null;
+                    this.slug = null;
+                    this.parent_id = null;
+                    this.description = null;
+
+                    axios.get('/categories/all/api')
+                        .then((response) => {
+                            this.categoryList = response.data;
+                        })
+                        .catch(() => {
+                            console.log('handle server error from here');
+                        });
+                    this.loading = false;
+                }
             },
             submitHandler(){
                 console.log(this);
@@ -115,7 +124,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

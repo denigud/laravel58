@@ -1,9 +1,10 @@
 <template>
-
-    <div id="category_edit">
+    <div>
+<!--    <div id="category_edit">-->
 <!--        <div class="loading" v-if="loading">-->
 <!--            Загрузка...-->
 <!--        </div>-->
+        <v-dialog :value="value" @input="$emit('input')">
         <form @submit.prevent="submitHandler">
             <div v-if="category" class="container">
                 <div class="row justify-content-center">
@@ -16,14 +17,16 @@
                 </div>
             </div>
         </form>
+        </v-dialog>
     </div>
 </template>
 
 <script>
-    import item_edit_main_col from './categories/includes/item_edit_main_col'
-    import item_edit_add_col from './categories/includes/item_edit_add_col'
+    import item_edit_main_col from './includes/item_edit_main_col'
+    import item_edit_add_col from './includes/item_edit_add_col'
     export default {
         name: 'category_edit',
+        props: ['value'],
         components:{
             item_edit_add_col,
             item_edit_main_col
@@ -32,12 +35,17 @@
             return {
                 category: null,
                 categoryList: null,
-                loading: false,
+                loading: true,
                 id: null,
             }
         },
         created () {
-            this.fetchData()
+            // this.fetchData()
+        },
+        beforeUpdate(){
+            this.loading = this.$attrs.loading;
+            this.fetchData();
+            this.$attrs.loading = false;
         },
         watch: {
             // при изменениях маршрута запрашиваем данные снова
@@ -45,16 +53,15 @@
         },
         methods: {
             fetchData() {
-                this.loading = true;
-                // axios.get('/category/api?categoryId=' + this.id)
                 if(this.$route.params.id !== undefined) {
                     this.id = this.$route.params.id;
+                }else if(this.$attrs.id !== undefined){
+                    this.id = this.$attrs.id;
                 }else{
                     this.id = '';
                 };
 
-                console.log(this.id);
-                if (this.id != "") {
+                if (this.id != "" && this.loading) {
                     axios.get('/category/api?categoryId=' + this.id)
                         .then((response) => {
                             this.category = response.data.category;
@@ -65,6 +72,8 @@
                             console.log('handle server error from here');
                         });
                 }
+                this.loading = false;
+
             },
             submitHandler(){
                 axios.post('/category/update/api', this.category)

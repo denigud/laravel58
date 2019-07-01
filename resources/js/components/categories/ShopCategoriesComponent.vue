@@ -6,8 +6,8 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <v-app>
-                            <category-create v-model="dialog" />
-                            <category-edit-component v-model="dialog_edit"/>
+                            <category-create v-model="dialog" v-bind:loading="true"/>
+                            <category-edit-component v-model="dialog_edit" v-bind:id="categoryId" v-bind:loading="loading"/>
 
                         <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
                             <v-btn @click="dialog = true" depressed color="primary" >Добавить</v-btn>
@@ -29,9 +29,10 @@
                                         <tr v-for="category in categories" :key="category.id">
                                             <td>{{ category.id }}</td>
                                             <td>
-                                                <router-link @click.prevent="dialog_edit = true" :to="{ name: 'categoryEdit', params: { id: category.id }}">
-                                                    {{ category.title }}
-                                                </router-link>
+                                                <a href="#" id="dialog_edit" @click="open(category.id)">{{ category.title }}</a>
+<!--                                                <router-link @click.prevent="dialog_edit = true" :to="{ name: 'categoryEdit', params: { id: category.id }}">-->
+<!--                                                    {{ category.title }}-->
+<!--                                                </router-link>-->
                                             </td>
                                             <td v-if="category.parent_id !== 0">{{ category.parent_category.title }}</td>
                                         </tr>
@@ -47,8 +48,6 @@
                     v-model="page"
                     :length="parseInt(last_page)"
                     :total-visible="7"
-                    :next-icon = null
-                    :prev-icon = null
                     @input="onPageChange"
                 ></v-pagination>
                 </div>
@@ -68,6 +67,8 @@
                 category: null,
                 dialog: false,
                 dialog_edit: false,
+                categoryId: null,
+                loading: false,
                 page: 1,
             }
         },
@@ -87,6 +88,11 @@
             onPageChange(page){
                 this.getCategories(page);
             },
+            open(id){
+                this.categoryId = id;
+                this.dialog_edit = true;
+                this.loading = true;
+            }
 
         }
     }

@@ -23,15 +23,13 @@ Vue.use(require('vuetify'));
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('categories-component', require('./components/ShopCategoriesComponent.vue').default);
+Vue.component('categories-component', require('./components/categories/ShopCategoriesComponent.vue').default);
 Vue.component('category-create', require('./components/categories/includes/item_create_main_col').default);
 
 
-const categoryComponent = Vue.component('category-edit-component', require('./components/ShopCategoryComponent').default);
-// const categoryMainCol = Vue.component(require('./components/categories/includes/item_edit_main_col').default);
-// const categoryAddCol = Vue.component('categoryAddCol', require('./components/categories/includes/item_edit_add_col').default);
+const categoryComponent = Vue.component('category-edit-component', require('./components/categories/ShopCategoryComponent').default);
 
-const categoryCreateComponent = Vue.component('category-create-component', require('./components/ShopCategoryCreateComponent').default);
+const categoryCreateComponent = Vue.component('category-create-component', require('./components/categories/ShopCategoryCreateComponent').default);
 
 
 
@@ -51,14 +49,12 @@ const router = new VueRouter({
                 default: categoryComponent,
 
             }
-            //component: categoryComponent,
         },
         {
             name: 'categoryCreate',
             path: '/admin/shop/categories/create',
             component: categoryCreateComponent,
         },
-        // { path: '*', component: NotFoundComponent },
     ],
 });
 

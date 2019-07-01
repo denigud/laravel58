@@ -34,25 +34,5 @@
         </div>
     </div>
 @endif
-{{--<table>--}}
-{{--    <thead>--}}
-{{--    <tr>--}}
-{{--        <th>#</th>--}}
-{{--        <th>Заголовок</th>--}}
-{{--        <th>Цена</th>--}}
-{{--    </tr>--}}
-{{--    </thead>--}}
-{{--    @foreach($items as $item)--}}
-{{--        @php /** @var \App\Models\ShopItem $item */ @endphp--}}
-{{--        <tr>--}}
-{{--            <td>{{ $item->id }}</td>--}}
-{{--            <td>--}}
-{{--                <a href="{{ route('shop.items.show', $item->id) }}">--}}
-{{--                    {{ $item->title }}--}}
-{{--                </a>--}}
-{{--            </td>--}}
-{{--            <td>{{ $item->price }}</td>--}}
-{{--        </tr>--}}
-{{--    @endforeach--}}
-{{--</table>--}}
+
 @endsection

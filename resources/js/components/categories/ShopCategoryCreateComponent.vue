@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import item_create_main_col from './categories/includes/item_create_main_col'
+    import item_create_main_col from './includes/item_create_main_col'
     export default {
         name: 'category-create',
         components:{
