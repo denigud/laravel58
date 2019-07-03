@@ -1,5 +1,5 @@
 <template>
-    <div id="shop-categories">
+    <div id="shop-items">
         <transition mode="out-in">
         <router-view></router-view>
             <div class="container">

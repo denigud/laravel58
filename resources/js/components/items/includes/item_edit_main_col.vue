@@ -19,7 +19,8 @@
                                                    type="text"
                                                    class="form-control"
                                                    minlength="3"
-                                                   required>
+                                                   required
+                                                   ref="titledEl">
                                         </div>
                                         <div class="form-group">
                                             <label for="price">Цена</label>

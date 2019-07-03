@@ -22,7 +22,11 @@
                                                                type="text"
                                                                class="form-control"
                                                                minlength="3"
-                                                               required>
+                                                               required
+                                                               ref="titledEl">
+                                                        <div class="alert alert-warning" role="alert" v-if="titleError !=='' && titleError !==null" v-model="titleError">
+                                                            {{ titleError }}
+                                                        </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="price">Цена</label>
@@ -110,6 +114,7 @@
                 categoryList: null,
                 is_active: false,
                 price: null,
+                titleError: null,
             }
         },
         beforeUpdate(){
@@ -117,9 +122,11 @@
             this.fetchData();
             this.$attrs.loading = false;
         },
+        watch:{
+            "title": 'checkTitle',
+        },
         methods:{
             fetchData() {
-
                 if(this.loading) {
                     this.title = null;
                     this.slug = null;
@@ -154,7 +161,15 @@
                         alert(e, response.data['msg']);
                     });
 
-            }
+            },
+            checkTitle(){
+                if(this.title.length<3){
+                    this.titleError = 'Заголовок должен быть не меньше трех символов';
+                }
+                else{
+                    this.titleError = '';
+                }
+            },
         }
     }
 </script>

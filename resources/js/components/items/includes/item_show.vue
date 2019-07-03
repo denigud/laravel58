@@ -1,39 +1,35 @@
 <template>
     <div>
-<!--    <div id="category_edit">-->
-<!--        <div class="loading" v-if="loading">-->
-<!--            Загрузка...-->
-<!--        </div>-->
         <v-dialog :value="value" @input="$emit('input')">
-        <form @submit.prevent="submitHandler">
-            <div v-if="category" class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <item_edit_main_col :category="category" :categoryList="categoryList"></item_edit_main_col>
-                    </div>
-                    <div class="col-md-3">
-                        <item_edit_add_col :category="category"></item_edit_add_col>
+            <form @submit.prevent="submitHandler">
+                <div v-if="item" class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <item_show_main_col :item="item" :categoryList="categoryList"></item_show_main_col>
+                        </div>
+                        <div class="col-md-3">
+                            <item_show_add_col :item="item"></item_show_add_col>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
         </v-dialog>
     </div>
 </template>
 
 <script>
-    import item_edit_main_col from './includes/item_edit_main_col'
-    import item_edit_add_col from './includes/item_edit_add_col'
+    import item_show_main_col from './item_show_main_col'
+    import item_show_add_col from './item_show_add_col'
     export default {
-        name: 'category_edit',
+        name: 'item_edit',
         props: ['value'],
         components:{
-            item_edit_add_col,
-            item_edit_main_col
+            item_show_main_col,
+            item_show_add_col
         },
         data() {
             return {
-                category: null,
+                item: null,
                 categoryList: null,
                 loading: true,
                 id: null,
@@ -61,10 +57,10 @@
                     this.id = '';
                 }
 
-                if (this.id !== "" && this.loading) {
-                    axios.get('/category/api?categoryId=' + this.id)
+                if (this.id != "" && this.loading) {
+                    axios.get('/item/api?itemId=' + this.id)
                         .then((response) => {
-                            this.category = response.data.category;
+                            this.item = response.data.item;
                             this.categoryList = response.data.categoryList;
                             this.loading = false;
                         })
@@ -76,15 +72,14 @@
 
             },
             submitHandler(){
-                axios.post('/category/update/api', this.category)
-                    .then((response) => {
-                        alert(response.data['msg']);
-                        this.$router.go(-1);
-                    })
-                    .catch((e) => {
-                        alert(e, response.data['msg']);
-                    });
-
+                // axios.post('/item/update/api', this.item)
+                //     .then((response) => {
+                //         alert(response.data['msg']);
+                //         this.$router.go(-1);
+                //     })
+                //     .catch((e) => {
+                //         alert(e, response.data['msg']);
+                //     });
             }
         }
     }

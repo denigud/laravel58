@@ -7,10 +7,11 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.Vuex = require('vuex');
 
 Vue.use(require('vue-router'));
 Vue.use(require('vuetify'));
-
+Vue.use(require('vuex'));
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -30,9 +31,14 @@ Vue.component('items-component', require('./components/items/ShopItemsComponent.
 Vue.component('item-create', require('./components/items/includes/item_create').default);
 Vue.component('item-edit-component', require('./components/items/ShopItemComponent').default);
 
-const categoryComponent = Vue.component('category-edit-component', require('./components/categories/ShopCategoryComponent').default);
+Vue.component('items-shop-component', require('./components/ItemsShopComponent').default);
+Vue.component('item_show_description', require('./components/items/includes/item_show_description').default);
 
+Vue.component('custom-input', import('./components/items/includes/custom-input').default);
+
+const categoryComponent = Vue.component('category-edit-component', require('./components/categories/ShopCategoryComponent').default);
 const categoryCreateComponent = Vue.component('category-create-component', require('./components/categories/ShopCategoryCreateComponent').default);
+const itemComponent = Vue.component('items-show-component', require('./components/items/includes/item_show').default);
 
 
 
@@ -58,12 +64,31 @@ const router = new VueRouter({
             path: '/admin/shop/categories/create',
             component: categoryCreateComponent,
         },
+        {
+            name: 'itemShow',
+            path: '/shop/items/:id/show',
+            components: {
+                default: itemComponent,
+
+            }
+        },
     ],
 });
 
+const store = new Vuex.Store({
+    state: {
+        count: 0
+    },
+    mutations: {
+        increment: state => state.count++,
+        decrement: state => state.count--
+    }
+})
 
 const app = new Vue({
     el: '#app',
+    store,
     router: router,
 });
+
 

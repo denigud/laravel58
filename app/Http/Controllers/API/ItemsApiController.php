@@ -31,4 +31,16 @@ class ItemsApiController extends Controller
         return $paginator;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function shop()
+    {
+        $paginator = $this->shopItemRepository->getAllWithPaginate(3);
+
+        return $paginator;
+    }
+
 }
