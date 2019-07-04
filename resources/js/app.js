@@ -7,11 +7,17 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-window.Vuex = require('vuex');
+window._ = require('lodash');
 
 Vue.use(require('vue-router'));
 Vue.use(require('vuetify'));
-Vue.use(require('vuex'));
+
+import store from './store';
+
+import { currency } from './store/currency';
+
+Vue.filter('currency', currency);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -74,16 +80,6 @@ const router = new VueRouter({
         },
     ],
 });
-
-const store = new Vuex.Store({
-    state: {
-        count: 0
-    },
-    mutations: {
-        increment: state => state.count++,
-        decrement: state => state.count--
-    }
-})
 
 const app = new Vue({
     el: '#app',

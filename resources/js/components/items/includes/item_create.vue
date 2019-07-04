@@ -3,7 +3,6 @@
         <div class="col-md-12">
             <v-dialog :value="value" @input="$emit('input')">
                 <form @submit.prevent="submitHandler">
-
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title"></div>

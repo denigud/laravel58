@@ -11,7 +11,13 @@
             </thead>
             <tbody>
             <tr v-for="item in items" :key="item.id">
-                <td>{{ item.id }}</td>
+                <td>
+                    <button class="btn btn-outline-success"
+                        :disabled="!item.is_active"
+                        @click="addProductToCart(item)">
+                        Add to cart
+                    </button>
+                </td>
                 <td v-if="item.category.id !== 0">{{ item.category.title }}</td>
                 <td>
                     <a href="#" id="dialog_edit" @click="emitMethod(item.description)">{{ item.title }}</a>
@@ -24,6 +30,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex'
     import EventBus from '../../../event-bus';
     export default {
         name: "item_view_row",
@@ -32,7 +39,10 @@
             emitMethod (description){
                 EventBus.$emit('showDescription', description);
             },
-        }
+            ...mapActions('cart', [
+                'addProductToCart'
+                ]),
+        },
     }
 </script>
 

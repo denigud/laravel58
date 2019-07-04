@@ -3,33 +3,28 @@
         <transition mode="out-in">
         <router-view></router-view>
             <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <custom_input v-model="searchText"></custom_input>
+                        <p>{{ description }}</p>
 
-                <custom_input v-model="searchText"></custom_input>
-                <p>{{ description }}</p>
+                        <v-app>
+                            <ShoppingCart v-model="dialog"/>
+                            <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+                                <nav class="nav nav-pills nav-fill">
+                                    <a class="nav-link" href="#" v-on:click="currentView = 'grid'">Плитка <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link" href="#" v-on:click="currentView = 'list'">Список</a>
+                                    <a class="nav-link" href="#" id="dialog_edit" @click="dialog= true">Товаров в корзине: {{ cartTotalQuantity }}</a>
+                                </nav>
+                            </nav>
+                            <br>
 
-                <p>
-                    {{ count }}
-                    <button @click="decrement">-</button>
-                    <button @click="increment">+</button>
-                </p>
+                            <component :is="currentViewComponent" :items="items"></component>
 
-                <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#" v-on:click="currentView = 'grid'">Плитка <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" v-on:click="currentView = 'list'">Список</a>
-                            </li>
-                        </ul>
+                            <component :is="'item_show_description'"></component>
+                        </v-app>
                     </div>
-                </nav>
-                <br>
-
-                <component :is="currentViewComponent" :items="items"></component>
-
-                <component :is="'item_show_description'"></component>
+                </div>
 
                 <div class="text-xs-center">
                     <v-pagination
@@ -39,6 +34,7 @@
                         @input="onPageChange"
                     ></v-pagination>
                 </div>
+
             </div>
         </transition>
     </div>
@@ -49,6 +45,9 @@
     import item_view_grid from './items/includes/item_view_grid.vue';
     import item_show_description from './items/includes/item_show_description.vue';
     import custom_input from './items/includes/custom-input.vue';
+    import ShoppingCart from './ShoppingCart.vue';
+
+    import { mapGetters } from 'vuex';
 
     export default {
         name: 'shop-items',
@@ -58,11 +57,13 @@
             item_view_grid,
             item_show_description,
             custom_input,
+            ShoppingCart,
         },
         data(){
             return{
                 items: null,
                 dialog_show: false,
+                dialog: false,
                 itemId: null,
                 loading: false,
                 page: 1,
@@ -78,9 +79,10 @@
             currentViewComponent() {
                 return 'item_view_' + this.currentView;
             },
-            count () {
-                return this.$store.state.count
-            },
+
+            ...mapGetters('cart', [
+                'cartTotalQuantity'
+            ]),
         },
         watch:{
             searchText: 'changeSearchText',
@@ -90,6 +92,7 @@
                 axios.get('/items/shop/api?page='+ pageNum)
                     .then((response) => {
                         this.items = response.data.data;
+                        this.$store.commit('products/setProducts',this.items)
                     })
                     .catch(() => {
                         console.log('handle server error from here');
@@ -105,12 +108,6 @@
             },
             changeSearchText(){
               this.description = this.searchText;
-            },
-            increment () {
-                this.$store.commit('increment')
-            },
-            decrement () {
-                this.$store.commit('decrement')
             },
         }
     }
